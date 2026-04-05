@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Car(models.Model):
     brand = models.CharField(max_length=128)
@@ -12,7 +13,11 @@ class Car(models.Model):
     leasing_price = models.FloatField(default=0.0)
     registration_number = models.CharField(max_length=10)
     description = models.TextField(blank=True)
+    slug = models.SlugField(max_length=128)
     
     def __str__(self):
         return f"{self.model} ({self.brand})"
-    
+
+
+    def get_absolute_url(self):
+        return reverse("car", kwargs={"slug": self.slug})

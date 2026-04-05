@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from store.views import index, car_detail
+
+from shop import settings
 
 urlpatterns = [
+    path('', index, name='index'),
     path('admin/', admin.site.urls),
-]
+    path('car/<str:slug>/', car_detail, name='car'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

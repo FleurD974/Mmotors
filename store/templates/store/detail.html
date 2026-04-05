@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ car.model }} ({{ car.brand }})</h2>
+    <h3>Profitez en!</h3>
+    <p>Moteur de type {{ car.engine }}</p>
+    <p>{{ car.passenger_number }} personnes</p>
+    <p>{{ car.mileage }}</p>
+    <p>{{ car.description }}</p>
+    
+{% endblock %}
