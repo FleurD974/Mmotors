@@ -18,11 +18,16 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from store.views import index, car_detail
+from accounts.views import login_user, logout_user, signup, profile
 
 from shop import settings
 
 urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls),
+    path('signup/', signup, name='signup'),
+    path('profile/', profile, name='profile'),
+    path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
     path('car/<str:slug>/', car_detail, name='car'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

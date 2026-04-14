@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <h1 class="h3 mb-3 fw-normal">Mon profil</h1>
+        <form method="POST">
+            <h2>Mes informations</h2>
+            {% csrf_token %}
+                {{ form }}
+                {% if messages %}
+                <div id="messages">
+                    {% for message in messages%}
+                        {{ message }}
+                        <div class="alert alert-info message {{ message.tags }}" role="alert"></div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Mettre à jour</button>
+        </form>
+        <div id="orders-list">
+            <h2>Mes commandes</h2>
+        </div>
+    </div>
+</main>
+
+{% endblock%}
