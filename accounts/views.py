@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.forms import model_to_dict
 from django.shortcuts import redirect, render
-from django.contrib import messages
 
 from accounts.forms import UserForm
 
