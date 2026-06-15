@@ -7,5 +7,12 @@
     <p>{{ car.passenger_number }} personnes</p>
     <p>{{ car.mileage }}</p>
     <p>{{ car.description }}</p>
+
+    <p>Cette offre vour intéresse ? N'hésitez pas à déposer votre dossier via le bouton suivant:</p>
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'create-application' car.slug %}">Déposer votre dossier</a></p>
+    {% else %}
+        <p><a href="{% url 'login' %}">Connectez vous!</a></p>
+    {% endif %}
     
 {% endblock %}

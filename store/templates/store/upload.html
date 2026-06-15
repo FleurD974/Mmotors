@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="h3 mb-3 fw-normal">Ajouter un document</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Ajouter le document</button>
+    </form>
+</div>
+
+{% endblock %}

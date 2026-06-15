@@ -2,9 +2,8 @@
 
 {% block content %}
 
-
-{% for car in cars %}
-    <h2>{{ car.model }} ({{ car.brand }})</h2>
-    <a href="{{ car.get_absolute_url }}">Voir l'offre</a>
-{% endfor %}
+    {% for car in cars %}
+        <h2>{{ car.model }} ({{ car.brand }})</h2>
+        <a href="{{ car.get_absolute_url }}">Voir l'offre</a>
+    {% endfor %}
 {% endblock %}

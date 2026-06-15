@@ -15,11 +15,15 @@
         <h1>M Motors location et achat</h1>
     </a>
     {% if user.is_authenticated %}
-        {{ user.username }}
+        <p>Bienvenu {{ user.username }}</p>
         <a href="{% url "logout" %}">Déconnexion</a>
     {% else %}
         <a href="{% url "login" %}">Connexion</a>
         <a href="{% url "signup" %}">S'inscrire</a>
+    {% endif %}
+
+    {% if user.application %}
+        <a href="{% url 'application-detail' %}">Voir mon application en cours</a>
     {% endif %}
 
     {% block content %}

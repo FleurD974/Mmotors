@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if messages %}
+<div id="messages">
+    {% for message in messages%}
+        <div class="alert alert-info message {{ message.tags }}" role="alert">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% for missingDocument in missingDocuments %}
+    <p>Veuillez ajouter un document de type {{ missingDocument }}</p>
+    <a class="btn btn-lg btn-primary" href="{% url 'upload-document' application.id %}">Ajouter mes documents</a>
+{% endfor %}
+
+{% for document in documents %}
+    <h2>{{ document.type }}</h2>
+    <p>{{ document.file }} ajouté le {{ document.uploaded_at }}</p>
+{% endfor %}
+
+{% if application.status == 'draft' %}
+    <a href="{% url 'submit-application' application.id %}" class="w-100 btn btn-lg btn-primary">Soumettre l'application</a>
+{% endif %}
+    
+{% endblock %}
