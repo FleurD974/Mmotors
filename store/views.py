@@ -10,12 +10,20 @@ from store.forms import DocumentForm
 
 
 def index(request):
-    cars = Car.objects.all()
-    return render(request, 'store/index.html', context={"cars": cars})
+    return render(request, 'store/index.html')
 
 def car_detail(request, slug):
     car = get_object_or_404(Car, slug=slug)
     return render(request, 'store/detail.html', context={"car": car})
+
+def all_leased_cars(request):
+    cars = Car.objects.filter(is_leased=True)
+    return render(request, 'store/leasedOffers.html', context={"cars": cars})
+    
+def all_purchased_cars(request):
+    cars = Car.objects.filter(is_purchased=True)
+    print(cars.query)
+    return render(request, 'store/purchasedOffers.html', context={"cars": cars})
 
 @login_required
 def create_application(request, slug):
@@ -84,3 +92,4 @@ def application_detail(request):
         'documents': application.documents.all(),
         'missingDocuments': missing_document_type
     })
+

@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-
-    {% for car in cars %}
-        <h2>{{ car.model }} ({{ car.brand }})</h2>
-        <a href="{{ car.get_absolute_url }}">Voir l'offre</a>
-    {% endfor %}
+    <main>
+        {% if messages %}
+            <div id="messages">
+                {% for message in messages %}
+                <div class="message alert alert-info" role="alert">
+                    <button class="close-btn" onclick="this.parentElement.remove();">&times;</button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="container">
+            <h2>Qu'est ce que MMotors</h2>
+            <p>
+                Leader mondiale dans le domaine de la location de voiture depuis xxx.
+            </p>
+        </div>
+        <div class="container">
+            <h2>Ce que nous vous proposons:</h2>
+            <ul>
+                <li>Des voitures en location <a href="{% url 'all-leased-cars' %}">Cliquer ici pour voir les voiture en location</a></li>
+                <li>Des voitures d'occasion <a href="{% url 'all-purchased-cars' %}">Cliquer ici pour voir les voitures à l'achat</a></li>
+            </ul>
+        </div>
+    </main>
 {% endblock %}

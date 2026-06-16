@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Nos offres a lachat</h1>
+<p>petit paragraphe explicatif</p>
+<p>Découvrez nos offres ci dessous!</p>
+    {% for car in cars %}
+        <h2>{{ car.model }} ({{ car.brand }})</h2>
+        <a href="{{ car.get_absolute_url }}">Voir l'offre</a>
+    {% endfor %}
+
+{% endblock %}
