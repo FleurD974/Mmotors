@@ -2,9 +2,12 @@
 {% load static %}
 
 {% block content %}
-<h1>Nos offres en leasing</h1>
-<p>petit paragraphe explicatif</p>
-<p>Découvrez nos offres ci dessous!</p>
+<h1>La location longue durée</h1>
+<p>Nous vous proposons ce nouveau service afin de répondre à de nouveaux besoins
+    Ce service fonctionne grâce à un abonnement mensuel.
+    Cet abonnement vous donne accès à de nombreux avantages: assurance tous risque, assistance dépannage, entretien et SAV mais aussi contrôle technique.
+</p>
+<p>Découvrez nos offres ci dessous</p>
     {% for car in cars %}
         <h2>{{ car.model }} ({{ car.brand }})</h2>
         <a href="{{ car.get_absolute_url }}">Voir l'offre</a>

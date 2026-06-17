@@ -2,9 +2,19 @@
 {% load static %}
 
 {% block content %}
-<h1>Nos offres a lachat</h1>
-<p>petit paragraphe explicatif</p>
-<p>Découvrez nos offres ci dessous!</p>
+<h1>Achat d'occasion</h1>
+<p>Fort de nos 30 ans d'expériences, nous vous proposons une variété de véhicules.
+    Afin de correspondre au plus de budget possible, nous proposons une large gamme de marques, modèles, motorisation, kilomètres.
+    Les véhicules proposés ont tous passé un contrôle technique poitilleux afin de garantir votre sécurité. Des entretiens réguliers sont donc effectués, des mises à niveau si nécessaire aussi
+    différentes garanties aussi.
+    Vous avez aussi accès a notre service client qualitatif pouvant vous conseillez et vous accompagnez afin de personnaliser votre experience.
+    Serez vous à l'aise au volant?
+    Pas de panique, un essai routier vous est proposé afin de pouvoir tester la voiture en condition réelle.
+    Peur de ne pas réussir à finance? Notre service finance est aussi là pour vous accompagner et vous aider à trouver les aides donc vous pouvez bénéficier.
+    De plus nous proposons de reprendre votre ancien véhicule afin de vous faciliter la vie.
+    Alors, qu'attendez vous?
+</p>
+<p>Découvrez nos offres ci dessous</p>
     {% for car in cars %}
         <h2>{{ car.model }} ({{ car.brand }})</h2>
         <a href="{{ car.get_absolute_url }}">Voir l'offre</a>
