@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Ajout d'une voiture</h1>
+    <form method="POST">
+        {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Ajouter</button>
+    </form>
+
+    {% if messages %}
+        <div id="messages">
+            {% for message in messages%}
+                {{ message }}
+                <div class="alert alert-info message {{ message.tags }}" role="alert"></div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

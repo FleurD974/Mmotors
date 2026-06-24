@@ -26,9 +26,11 @@
             </ul>
             <div class="col-md-3 text-end d-flex align-items-center justify-content-around">
                 {% if user.is_authenticated %}
-                    <p>Bienvenue {{ user.username }}</p>
                     <a href="{% url 'profile' %}" ><i class="fi fi-rr-user"></i></a>
-                    {% if user.application %}
+                    {% if user.is_staff %}
+                        <a href="{% url 'all-applications' %}">Application à traiter</a>
+                        <a href="{% url 'all-cars' %}">Gérer le parc</a>
+                    {% elif user.application %}
                         <a href="{% url 'application-detail' %}">Voir mon application en cours</a>
                     {% endif %}
                     <a href="{% url 'logout' %}" class="btn btn-primary px-4 me-md-2">Se déconnecter</a>
@@ -39,9 +41,11 @@
             </div>
         </header>
     </div>
-    <a href="{% url "index" %}">
-        <h1>M Motors location et achat</h1>
-    </a>
+    <div class="container">
+        <a href="{% url "index" %}">
+            <h1>M Motors location et achat</h1>
+        </a>
+    </div>
 
     {% block content %}
     {% endblock %}
@@ -61,6 +65,3 @@
     <script src="{% static 'script/messages.js' %}"></script>
 </body>
 </html>
-
-
-{% comment %}  a faire rajouter des offres une pages avec toutes les offres le matin et ladmin laprem {% endcomment %}

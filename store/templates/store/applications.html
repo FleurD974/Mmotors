@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Les applications à traiter</h1>
+    {% for application in applications %}
+        <h2>{{ application.customer }} créé le {{ application.created_at }}</h2>
+        <p>
+            Intéréssé par {{ application.car }}.
+            Statut de l'application : {{ application.status }}
+            Traité le : {{ application.reviewed_at }}
+        </p>
+        <a href="{% url 'admin-application-detail' application.id %}">Traiter l'application</a>
+    {% endfor %}
+</div>
+{% endblock %}

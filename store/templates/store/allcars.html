@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Les voitures du parc</h1>
+    Pour ajouter une voiture cliquer ici:
+    <a href="{% url 'add-car' %}" class="w-100 btn btn-lg btn-primary">Ajouter</a>
+    {% for car in cars %}
+        <div class="container">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ car.model }} ({{ car.brand }})</h5>
+                    <p class="card-text">{{ car.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Moteur de type: {{ car.engine }}</li>
+                    <li class="list-group-item">Capacité: {{ car.passenger_number }} personnes</li>
+                    <li class="list-group-item">{{ car.mileage}} km</li>
+                    <li class="list-group-item">
+                        {% if car.is_leased == True %}
+                            Location
+                        {% else %}
+                            Achat
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item">
+                        {% if car.is_leased == True %}
+                            {{ car.leasing_price }}€
+                        {% else %}
+                            {{ car.purchase_price }}€
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item">Immatriculation {{ car.registration_number }}</li>
+                </ul>
+                <div class="card-body">
+                    {% if user.is_authenticated and user.is_staff %}
+                        <a href="{% url 'modify-car' car.id %}" class="card-link">Modifier</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
