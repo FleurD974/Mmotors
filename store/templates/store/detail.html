@@ -1,18 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ car.model }} ({{ car.brand }})</h2>
-    <h3>Profitez en!</h3>
-    <p>Moteur de type {{ car.engine }}</p>
-    <p>{{ car.passenger_number }} personnes</p>
-    <p>{{ car.mileage }}</p>
-    <p>{{ car.description }}</p>
-
-    <p>Cette offre vour intéresse ? N'hésitez pas à déposer votre dossier via le bouton suivant:</p>
-    {% if user.is_authenticated %}
-        <p><a href="{% url 'create-application' car.slug %}">Déposer votre dossier</a></p>
-    {% else %}
-        <p><a href="{% url 'login' %}">Connectez vous!</a></p>
-    {% endif %}
-    
+<div class="container">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ car.model }} ({{ car.brand }})</h5>
+            <p class="card-text">{{ car.description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Moteur de type: {{ car.engine }}</li>
+            <li class="list-group-item">Capacité: {{ car.passenger_number }} personnes</li>
+            <li class="list-group-item">{{ car.mileage}} km</li>
+            <li class="list-group-item">
+                {% if car.is_leased == True %}
+                    {{ car.leasing_price }}€
+                {% else %}
+                    {{ car.purchase_price }}€
+                {% endif %}
+            </li>
+        </ul>
+        <div class="card-body">
+            {% if user.is_authenticated and not user.is_staff %}
+            <a href="{% url 'create-application' car.slug %}" class="card-link">Déposer votre dossier</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="card-link">Connectez vous!</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

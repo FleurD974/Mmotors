@@ -2,15 +2,25 @@
 {% load static %}
 
 {% block content %}
-<h1>La location longue durée</h1>
-<p>Nous vous proposons ce nouveau service afin de répondre à de nouveaux besoins
-    Ce service fonctionne grâce à un abonnement mensuel.
-    Cet abonnement vous donne accès à de nombreux avantages: assurance tous risque, assistance dépannage, entretien et SAV mais aussi contrôle technique.
-</p>
-<p>Découvrez nos offres ci dessous</p>
-    {% for car in cars %}
-        <h2>{{ car.model }} ({{ car.brand }})</h2>
-        <a href="{{ car.get_absolute_url }}">Voir l'offre</a>
-    {% endfor %}
+<main>
+    <div class="container">
+        <h1>La location longue durée</h1>
+        <p>Nous vous proposons ce nouveau service afin de répondre à de nouveaux besoins
+            Ce service fonctionne grâce à un abonnement mensuel.
+            Cet abonnement vous donne accès à de nombreux avantages: assurance tous risque, assistance dépannage, entretien et SAV mais aussi contrôle technique.
+        </p>
 
+        <h2>Découvrez nos offres ci dessous</h2>
+        {% for car in cars %}
+            <div class="card">
+                <div class="card-header">{{ car.brand }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ car.model }}</h5>
+                    <p class="card-text">{{ car.description }}</p>
+                    <a href="{{ car.get_absolute_url }}" class="btn btn-primary">Voir l'offre</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</main>
 {% endblock %}
