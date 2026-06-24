@@ -17,11 +17,11 @@ def car_detail(request, slug):
     return render(request, 'store/detail.html', context={"car": car})
 
 def all_leased_cars(request):
-    cars = Car.objects.filter(is_leased=True)
+    cars = Car.objects.filter(is_leased=True, is_available=True)
     return render(request, 'store/leasedOffers.html', context={"cars": cars})
     
 def all_purchased_cars(request):
-    cars = Car.objects.filter(is_purchased=True)
+    cars = Car.objects.filter(is_purchased=True, is_available=True)
     return render(request, 'store/purchasedOffers.html', context={"cars": cars})
 
 @login_required
@@ -176,6 +176,9 @@ def approve_application(request, application_id):
 
     application.status = 'approved'
     application.reviewed_at = timezone.now()
+    car = application.car
+    car.is_available = False
+    car.save()
     application.save()
 
     applications = Application.objects.all()

@@ -14,6 +14,7 @@ class Car(models.Model):
     passenger_number = models.IntegerField(default=2)
     is_purchased = models.BooleanField(default=False)
     is_leased = models.BooleanField(default=True)
+    is_available = models.BooleanField(default=True)
     purchase_price = models.FloatField(default=0.0)
     leasing_price = models.FloatField(default=0.0)
     registration_number = models.CharField(max_length=10)
