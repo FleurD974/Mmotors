@@ -125,3 +125,5 @@ STATICFILES_DIRS = [BASE_DIR / "shop" / "static"]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 AUTH_USER_MODEL = "accounts.Customer"
+
+LOGIN_URL = "/account/login/"

@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import FileResponse, HttpResponseForbidden
+from accounts.models import Customer
 from store.models import Car, Application, Document, DocumentType
 from store.forms import DocumentForm, CarForm
 
@@ -26,12 +27,8 @@ def all_purchased_cars(request):
 
 @login_required
 def create_application(request, slug):
-    user = request.user
-    car = get_object_or_404(Car, slug=slug)
-    application, created = Application.objects.get_or_create(customer=user, car=car)
-
-    if application.status != 'draft':
-        return HttpResponseForbidden("Already submitted")
+    user: Customer = request.user
+    user.create_application(slug=slug)
 
     return redirect('application-detail')
 
