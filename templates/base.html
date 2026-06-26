@@ -20,13 +20,14 @@
             </a>
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{% url 'index' %}" class="nav-link px-2 link-secondary">Acceuil</a></li>
-                <li><a href="" class="nav-link px-2 link-dark">Nos offres</a></li>
+                <li><a href="{% url 'all-purchased-cars' %}" class="nav-link px-2 link-dark">Achat</a></li>
+                <li><a href="{% url 'all-leased-cars' %}" class="nav-link px-2 link-dark">Location</a></li>
                 <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
                 {% comment %} <li><a href="{% url 'about' %}" class="nav-link px-2 link-dark">A propos</a></li> {% endcomment %}
             </ul>
             <div class="col-md-3 text-end d-flex align-items-center justify-content-around">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}" ><i class="fi fi-rr-user"></i></a>
+                    <a href="{% url 'profile' %}" ><i class="fi fi-rr-user"></i>Profil</a>
                     {% if user.is_staff %}
                         <a href="{% url 'all-applications' %}">Application à traiter</a>
                         <a href="{% url 'all-cars' %}">Gérer le parc</a>
@@ -63,5 +64,6 @@
         </footer>
     </div>
     <script src="{% static 'script/messages.js' %}"></script>
+    <script src="{% static 'script/form.js' %}"></script>
 </body>
 </html>

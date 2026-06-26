@@ -38,6 +38,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
+    messages.add_message(request, messages.INFO, "Vous êtes déconnecté")
     return redirect('index')
 
 @login_required
