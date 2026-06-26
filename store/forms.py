@@ -79,8 +79,9 @@ class CarForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        is_purchased = cleaned_data.get('is_purchased')
-        is_leased = cleaned_data.get('is_leased')
+
+        is_purchased = bool(cleaned_data.get('is_purchased'))
+        is_leased = bool(cleaned_data.get('is_leased'))
 
         if is_purchased and is_leased:
             raise forms.ValidationError(

@@ -5,47 +5,39 @@ document.addEventListener('DOMContentLoaded', function () {
     const purchasePrice = document.getElementById('id_purchase_price');
     const leasingPrice = document.getElementById('id_leasing_price');
 
-    if (!purchased || !leased) return;
-
     const formMessages = document.querySelectorAll('ul.errorlist');
 
-    formMessages.forEach(formMessages => {
-        formMessages.classList.add('hidden-message');
+    formMessages.forEach(el => {
+        el.classList.add('hidden-message');
     });
 
     function updateState() {
-        // --- checkboxpart ---
+
+        // --- checkbox UX only ---
         if (purchased.checked) {
-            leased.checked = false;
-            leased.disabled = true;
+            leased.parentElement.classList.add('inactive');
         } else {
-            leased.disabled = false;
+            leased.parentElement.classList.remove('inactive');
         }
 
         if (leased.checked) {
-            purchased.checked = false;
-            purchased.disabled = true;
+            purchased.parentElement.classList.add('inactive');
         } else {
-            purchased.disabled = false;
+            purchased.parentElement.classList.remove('inactive');
         }
 
-        // --- price part ---
+        // --- price logic UX ---
         if (purchased.checked && !leased.checked) {
-            // purchase only
-            purchasePrice.disabled = false;
-            leasingPrice.disabled = true;
-            leasingPrice.value = '';
+            purchasePrice.parentElement.classList.remove('inactive');
+            leasingPrice.parentElement.classList.add('inactive');
+
         } else if (leased.checked && !purchased.checked) {
-            // leased only
-            leasingPrice.disabled = false;
-            purchasePrice.disabled = true;
-            purchasePrice.value = '';
-        } else if (!purchased.checked && !leased.checked) {
-            purchasePrice.disabled = true;
-            leasingPrice.disabled = true;
+            leasingPrice.parentElement.classList.remove('inactive');
+            purchasePrice.parentElement.classList.add('inactive');
+
         } else {
-            purchasePrice.disabled = false;
-            leasingPrice.disabled = false;
+            purchasePrice.parentElement.classList.add('inactive');
+            leasingPrice.parentElement.classList.add('inactive');
         }
     }
 

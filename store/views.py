@@ -173,6 +173,8 @@ def add_car(request):
                 'Voiture ajoutée avec succès'
             )
             return redirect('all-cars')
+        else:
+            logger.error('Form invalide: %s', form.errors)
 
     else:
         form = CarForm()
