@@ -12,6 +12,14 @@ logger = logging.getLogger('store')
 User = get_user_model()
 
 def signup(request):
+    """Signing up new user
+
+    Args:
+        request (request): The received request
+
+    Returns:
+        HttpResponse: the view to render
+    """
     if request.method == "POST":
         user_email = request.POST.get("email")
         user_last_name = request.POST.get("last_name")
@@ -27,6 +35,14 @@ def signup(request):
     return render(request, 'accounts/signup.html')
 
 def login_user(request):
+    """Login user
+
+    Args:
+        request (request): The received request
+
+    Returns:
+        HttpResponse|HttpResponseRedirect : the view to render
+    """
     if request.method == "POST":
         username =request.POST.get("username")
         password = request.POST.get("password")
@@ -39,12 +55,28 @@ def login_user(request):
     return render(request, 'accounts/login.html')
 
 def logout_user(request):
+    """Logout user
+
+    Args:
+        request (request): The received request
+
+    Returns:
+        HttpResponse|HttpResponseRedirect : the view to render
+    """
     logout(request)
     messages.add_message(request, messages.INFO, "Vous êtes déconnecté")
     return redirect('index')
 
 @login_required
 def profile(request):
+    """Verify the user and pass the needed informations
+
+    Args:
+        request (): Received request
+
+    Returns:
+        HttpResponse|HttpResponseRedirect : the view to render
+    """
     if request.method == "POST":
         is_valid = authenticate(email=request.POST.get("email"), password=request.POST.get("password"))
         if is_valid:

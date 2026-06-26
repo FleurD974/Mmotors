@@ -34,6 +34,12 @@ class Customer(AbstractUser):
     objects = CustomUserManager()
 
     def create_application(self, slug):
+        """
+        Create an application for a car and a user
+
+        Args:
+            slug (str): car slug
+        """
         car = get_object_or_404(Car, slug=slug)
         application, created = Application.objects.get_or_create(customer=self, car=car)
 
