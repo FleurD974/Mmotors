@@ -10,6 +10,10 @@ staticfiles
 # Backup files # 
 *.bak 
 
+#logs
+logs/
+*.log
+
 # If you are using PyCharm # 
 # User-specific stuff
 .idea/**/workspace.xml

@@ -8,6 +8,9 @@ from accounts.models import Customer
 from store.models import Car, Application, Document, DocumentType
 from store.forms import DocumentForm, CarForm
 
+import logging
+
+logger = logging.getLogger('store')
 
 def index(request):
     return render(request, 'store/index.html')
@@ -74,6 +77,13 @@ def submit_application(request, application_id):
     
     application.status = 'submitted'
     application.save()
+    
+    logger.info(
+        'Application %s soumise par %s',
+        application.id,
+        request.user.username
+    )
+
     messages.add_message(request, messages.INFO, 'Application soumise avec succès')
     return redirect('application-detail')
 
@@ -99,6 +109,10 @@ def all_applications(request):
 @login_required
 def all_cars(request):
     if not request.user.is_staff:
+        logger.warning(
+            'Tentative d\'accès à all_cars par %s',
+            request.user.username
+        )
         raise PermissionDenied()
 
     cars = Car.objects.all()
@@ -107,13 +121,22 @@ def all_cars(request):
 @login_required
 def modify_car(request, car_id):
     if not request.user.is_staff:
+        logger.warning(
+            'Tentative d\'accès à modify_car par %s',
+            request.user.username
+        )
         raise PermissionDenied()
     car = get_object_or_404(Car, id=car_id)
 
     if request.method == "POST":
         form = CarForm(request.POST, instance=car)
         if form.is_valid():
-            form.save()
+            car = form.save()
+            logger.info(
+                'Voiture %s modifiée par %s',
+                car.id,
+                request.user.username
+            )
             messages.success(
                 request,
                 'Informations modifiées avec succès'
@@ -127,13 +150,24 @@ def modify_car(request, car_id):
 @login_required
 def add_car(request):
     if not request.user.is_staff:
+        logger.warning(
+            'Tentative d\'accès à add_car par %s',
+            request.user.username
+        )
         raise PermissionDenied()
 
     if request.method == "POST":
         form = CarForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            car = form.save()
+            logger.info(
+                'Voiture %s (%s %s) ajoutée par %s',
+                car.id,
+                car.brand,
+                car.model,
+                request.user.username
+            )
             messages.success(
                 request,
                 'Voiture ajoutée avec succès'
@@ -148,6 +182,10 @@ def add_car(request):
 @login_required
 def admin_application_detail(request, application_id):
     if not request.user.is_staff:
+        logger.warning(
+            'Tentative d\'accès à admin_application_detail par %s',
+            request.user.username
+        )
         raise PermissionDenied()
 
     application = get_object_or_404(Application, id=application_id)
@@ -162,6 +200,10 @@ def admin_application_detail(request, application_id):
 def approve_application(request, application_id):
     # to approve application
     if not request.user.is_staff:
+        logger.warning(
+            'Tentative d\'accès à approve_application par %s',
+            request.user.username
+        )
         raise PermissionDenied()
 
     application = get_object_or_404(Application, id=application_id)
@@ -170,6 +212,11 @@ def approve_application(request, application_id):
         return HttpResponseForbidden("Dossier non soumis")
 
     application.approve()
+    logger.info(
+        'Application %s approuvée par %s',
+        application.id,
+        request.user.username
+    )
 
     applications = Application.objects.all()
     return render(request, 'store/applications.html', context={"applications": applications})
@@ -178,6 +225,10 @@ def approve_application(request, application_id):
 def reject_application(request, application_id):
     # to approve application
     if not request.user.is_staff:
+        logger.warning(
+            'Tentative d\'accès à reject_application par %s',
+            request.user.username
+        )
         raise PermissionDenied()
 
     application = get_object_or_404(Application, id=application_id)
@@ -186,6 +237,12 @@ def reject_application(request, application_id):
         return HttpResponseForbidden("Dossier non soumis")
 
     application.reject()
+    
+    logger.info(
+        'Application %s rejetée par %s',
+        application.id,
+        request.user.username
+    )
 
     applications = Application.objects.all()
     return render(request, 'store/applications.html', context={"applications": applications})
@@ -195,6 +252,10 @@ def view_document(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
     if doc.application.customer != request.user and not request.user.is_staff:
+        logger.warning(
+            'Tentative d\'accès à view_document par %s',
+            request.user.username
+        )
         return HttpResponseForbidden()
 
     return FileResponse(doc.file.open('rb'), as_attachment=False)

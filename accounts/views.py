@@ -6,7 +6,9 @@ from django.shortcuts import redirect, render
 
 from accounts.forms import UserForm
 
+import logging
 
+logger = logging.getLogger('store')
 User = get_user_model()
 
 def signup(request):
