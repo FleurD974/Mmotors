@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import slugify
 
 from shop.settings import AUTH_USER_MODEL
@@ -48,6 +49,17 @@ class Application(models.Model):
     def __str__(self):
         return f"Dossier {self.customer} - {self.car}"
 
+    def approve(self):
+        self.status = 'approved'
+        self.reviewed_at = timezone.now()
+        self.car.is_available = False
+        self.car.save()
+        self.save()
+
+    def reject(self):
+        self.status = 'rejected'
+        self.reviewed_at = timezone.now()
+        self.save()
 
 def upload_to(instance, filename):
     ext = filename.split('.')[-1]
@@ -68,4 +80,3 @@ class Document(models.Model):
 
     def __str__(self):
         return f"Document {self.application}"
-    

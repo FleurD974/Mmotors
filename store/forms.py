@@ -61,3 +61,20 @@ class CarForm(forms.ModelForm):
             }),
             'description': forms.Textarea(),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        is_purchased = cleaned_data.get('is_purchased')
+        is_leased = cleaned_data.get('is_leased')
+
+        if is_purchased and is_leased:
+            raise forms.ValidationError(
+                'Une voiture ne peut pas être en location et à l\'achat.'
+            )
+
+        if not is_purchased and not is_leased:
+            raise forms.ValidationError(
+                'Une voiture doit être en location ou à l\'achat.'
+            )
+
+        return cleaned_data

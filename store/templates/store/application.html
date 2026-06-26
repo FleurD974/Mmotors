@@ -21,6 +21,7 @@
 
 {% if application.status == 'draft' %}
     <a href="{% url 'submit-application' application.id %}" class="w-100 btn btn-lg btn-primary">Soumettre l'application</a>
-{% endif %}
+    <button type="submit" class="w-100 btn btn-lg btn-primary">Soumettre l'application</button>
+    {% endif %}
     
 {% endblock %}
