@@ -7,6 +7,14 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ["first_name", "last_name", "email", "password"]
+
+        labels = {
+            'first_name': 'Prénom',
+            'last_name': 'Nom',
+            'email': 'Adresse email',
+            'password': 'Mot de passe',
+        }
+
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'class': "form-control",

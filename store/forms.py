@@ -24,6 +24,21 @@ class CarForm(forms.ModelForm):
             'brand', 'model', 'engine', 'mileage', 'passenger_number', 'is_purchased',
             'is_leased', 'purchase_price', 'leasing_price', 'registration_number', 'description'
         ]
+
+        labels = {
+            'brand': 'Marque',
+            'model': 'Modèle',
+            'engine': 'Motorisation',
+            'mileage': 'Kilométrage',
+            'passenger_number': 'Nombre de places',
+            'is_purchased': 'À vendre',
+            'is_leased': 'À louer',
+            'purchase_price': 'Prix de vente',
+            'leasing_price': 'Loyer mensuel',
+            'registration_number': 'Immatriculation',
+            'description': 'Description',
+        }
+
         widgets = {
             'brand': forms.TextInput(attrs={
                 'class': 'form-control',

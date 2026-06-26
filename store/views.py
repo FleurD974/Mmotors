@@ -12,6 +12,12 @@ from store.forms import DocumentForm, CarForm
 def index(request):
     return render(request, 'store/index.html')
 
+def about(request):
+    return render(request, 'store/about.html')
+
+def legal_notice(request):
+    return render(request, 'store/legal.html')
+
 def car_detail(request, slug):
     car = get_object_or_404(Car, slug=slug)
     return render(request, 'store/detail.html', context={"car": car})
