@@ -22,6 +22,10 @@ button {
     margin: 10px;
 }
 
+a.btn{
+    margin-bottom: 10px;
+}
+
 .form-centered{
     justify-items: center;
 }

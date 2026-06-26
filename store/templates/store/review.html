@@ -6,11 +6,11 @@
     <h2>{{ application.customer }} créé le {{ application.created_at }}</h2>
     <p>
         Intéréssé par {{ application.car }}.
-        Statut de l'application : {{ application.status }}
-        Traité le : {{ application.reviewed_at }}
+        <br>Statut de l'application : {{ application.status }}
+        <br>Traité le : {{ application.reviewed_at }}
         {% for document in documents %}
             {{ document.type }} ajouté le {{ document.uploaded_at }}
-        <a href="{% url 'view-document' document.id %}" target="_blank">Consulter le document</a>
+            <a href="{% url 'view-document' document.id %}" target="_blank">Consulter le document</a>
         {% endfor %}
     </p>
     <a href="{% url 'approve-application' application.id %}">Valider l'application</a>
