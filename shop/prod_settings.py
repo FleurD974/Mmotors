@@ -6,8 +6,16 @@ from .settings import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-SECRET_KEY = 'jt@(*tw+w-fm3o*kfobfhrkum!-84-h3b5=_$u(1b(9xazvcpp'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 ALLOWED_HOSTS = ['mmotors-project-5dec44416bdd.herokuapp.com']
 
 DATABASES['default'] = dj_database_url.config()
+
+MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+]
+
+STATICFILES_STORAGE = (
+    'whitenoise.storage.CompressedManifestStaticFilesStorage'
+)
